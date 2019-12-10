@@ -1,0 +1,14 @@
+{
+  "name": "projetosegundobimestre",
+  "version": "1.0.0",
+  "description": "Projeto desenvolvido para o segundo Bimestre de Desenvolvimento de Sistemas Web, do IFSP-CMP.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodet app.js"
+  },
+  "author": "Marcos Paulo e Rebecca Rodrigues",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

@@ -1,0 +1,21 @@
+DROP DATABASE IF EXISTS dsw;
+CREATE DATABASE dsw;
+
+USE dsw;
+
+CREATE TABLE IF NOT EXISTS tb_users (
+    id int AUTO_INCREMENT PRIMARY KEY, 
+    username VARCHAR(255), 
+    email VARCHAR(255), 
+    password VARCHAR(255), 
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS tb_tasks (
+    id int AUTO_INCREMENT PRIMARY KEY,
+	description VARCHAR(255),
+	progress INT NOT NULL DEFAULT 0,
+    userID INT,
+	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    FOREIGN KEY (userID) REFERENCES tb_users(ID) ON DELETE CASCADE
+);
