@@ -1,10 +1,14 @@
-var app = require('./config/server.js')
-let port = process.env.PORT || 3000;
+let app = require('./config/server.js');
+// let rotaHome = require('./app/routes/home.js');
+// let rotaNotas = require('./app/routes/notas.js');
+// let rotaInsereNotas = require('./app/routes/insere_notas.js');
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
+// rotaHome(app);
+// rotaNotas(app);
+// rotaInsereNotas(app);
 
-app.listen(port, function () {
-  console.log('Servidor rodando com express na porta:', port)
-})
+let port = 3000;
+
+app.listen(port, function(){
+	console.log('Servidor rodando com express na porta', port);
+});

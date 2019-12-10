@@ -1,5 +1,9 @@
+module.exports.index = function (app, req, res) {
+    res.render('login_page', {erros: {}, success: ''});
+}
+
 module.exports.onUserInsert = function (app, req, res) {
-    res.render('insere_usuario', { erros: {}, usuario: {} });
+    res.render('register_user', { erros: {}, usuario: {} });
 }
 
 module.exports.onUserSave = function (app, req, res) {
@@ -15,9 +19,9 @@ module.exports.onUserSave = function (app, req, res) {
     }
 
     let connection = app.config.dbConnection();
-    let usuariosModel = new app.app.models.userDAO(connection);
+    let userDAO = new app.app.models.userDAO(connection);
 
-    usuariosModel.usuarioSalvar(usuario, function (error, result) {
+    userDAO.onUserRegister(usuario, function (error, result) {
         if (error) {
             console.log("Erro");
             console.log(error);
@@ -40,9 +44,9 @@ module.exports.onUserAuthenticate = function (app, req, res) {
     }
     
 	let connection = app.config.dbConnection();
-	let usuariosModel = new app.app.models.userDAO(connection);
+	let userDAO = new app.app.models.userDAO(connection);
 
-	usuariosModel.onUserAuthenticate(user, function(error, result){
+	userDAO.onUserAuthenticate(user, function(error, result){
 		if(error) {
 			res.redirect('/');
 			req.session.autorizado = false;
