@@ -9,14 +9,15 @@ module.exports.onUserInsert = function (app, req, res) {
 module.exports.onUserSave = function (app, req, res) {
 	let usuario = req.body;
 	
-    req.assert("username", "O campos Usuário é de preenchimento obrigatório").notEmpty();
-    req.assert("password", "O campos Password é de preenchimento obrigatório").notEmpty();
+    // req.assert("username", "O campo Usuário é de preenchimento obrigatório").notEmpty();
+    // req.assert("email", "O campo E-mail é de preenchimento obrigatório").notEmpty();
+    // req.assert("password", "O campo Password é de preenchimento obrigatório").notEmpty();
     
-    var erros = req.validationErrors();
-    if (erros) {
-		res.send(err);
-		return;
-    }
+    // let erros = req.validationErrors();
+    // if(erros){
+    //     res.render("login_page", {erros: erros, success: ''});
+    //     return;
+    // }
 
     let connection = app.config.dbConnection();
     let userDAO = new app.app.models.userDAO(connection);
@@ -27,21 +28,21 @@ module.exports.onUserSave = function (app, req, res) {
             console.log(error);
         }
         let sucesso = 'Usuário cadastrado com sucesso';
-        res.render('home/index',  {success: sucesso, erros: {} });
+        res.render('login_page',  {success: sucesso, erros: {} });
     });
 }
 
 module.exports.onUserAuthenticate = function (app, req, res) {
 	let user = req.body;
 
-	req.assert("username", "O campo Usuário é de preenchimetno obrigatório").notEmpty();
-    req.assert("password", "O campo Senha é de preenchimetno obrigatório").notEmpty();
+	// req.assert("username", "O campo Usuário é de preenchimento obrigatório").notEmpty();
+    // req.assert("password", "O campo Senha é de preenchimento obrigatório").notEmpty();
     
-	let err = req.validationErrors();
-	if (err) {
-		res.send(err);
-		return;
-    }
+	// let err = req.validationErrors();
+	// if (err) {
+	// 	res.send(err);
+	// 	return;
+    // }
     
 	let connection = app.config.dbConnection();
 	let userDAO = new app.app.models.userDAO(connection);

@@ -1,15 +1,25 @@
 {
   "name": "projetosegundobimestre",
   "version": "1.0.0",
-  "description": "Projeto desenvolvido para o segundo Bimestre de Desenvolvimento de Sistemas Web, do IFSP-CMP.",
-  "main": "index.js",
+  "description": "Projeto desenvolvido como propósito",
+  "main": "app.js",
   "scripts": {
-    "test": "nodet app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Marcos Paulo e Rebecca Rodrigues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marquetaflax/ProjetoSegundoBimestre.git"
+  },
+  "author": "Rebecca Rodrigues e Marcos Paulo Campos Filho",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marquetaflax/ProjetoSegundoBimestre/issues"
+  },
+  "homepage": "https://github.com/marquetaflax/ProjetoSegundoBimestre#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "consign": "^0.1.6",
+    "crypto": "^1.0.1",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
