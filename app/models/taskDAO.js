@@ -1,29 +1,26 @@
-module.exports = function () {
-
-  this.getAll = async function(conn) {
-    let sql = `SELECT * FROM tb_tasks`;
-    return await conn.query(sql);
-  }
-
-  this.onUpdateProgress = async function(task, conn) {
-    let sql = `UPDATE tb_tasks set PROGRESS = '${task.progress}' where id = ${task.id}`;
-    return await conn.query(sql);
-  }
-
-  this.onUpdateTask = async function(task, conn) {
-    let sql = `UPDATE tarefa SET description = '${task.description}' where id = ${task.id}`;
-    return await conn.query(sql);
-  }
-  this.onDeleteTask = async function(id, conn) {
-    let sql = `DELETE FROM tb_tasks WHERE id = ${id}`;
-    return await conn.query(sql);
-  }
-
-  this.onInsertTask = async function(task, conn) {
-    let sql = 'INSERT INTO tb_tasks SET ?';
-    return await conn.query(sql, tarefa);
-  }
-
-  return this;
+function TaskDAO(connection) {
+	this._conn = connection;
 }
-  
+
+TaskDAO.prototype.getAll = function (callback) {
+  let sql = `SELECT * FROM tb_tasks`;
+	this._conn.query(sql, callback);
+}
+
+TaskDAO.prototype.onTaskInsert = function (task, callback) {
+	this._conn.query('INSERT INTO tb_tasks SET ?', task, callback);
+}
+
+TaskDAO.prototype.onTaskUpdateData = function (task, callback) {
+  let sql = `UPDATE tarefa SET description = '${task.description}' where id = ${task.id}`;
+	this._conn.query(sql, callback);
+}
+
+TaskDAO.prototype.onTaskDelete = function (id, callback) {
+  let sql = `DELETE FROM tb_tasks WHERE id = ${id}`;
+	this._conn.query(sql, callback);
+}
+
+module.exports = function(){ 
+	return TaskDAO;
+}

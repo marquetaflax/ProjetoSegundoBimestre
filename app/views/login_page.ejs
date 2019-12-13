@@ -38,7 +38,16 @@
         <!-- Alerta -->
         <% if(success != '') { %>
         <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            Cadastro realizado com <strong>sucesso!</strong>
+            <%= success %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <% } %>
+
+        <% if(erros != '') { %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <%= erros %>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -46,10 +55,8 @@
         <% } %>
         <!-- Alerta -->
 
-        <!-- exemplo para utilizar dps: https://bootsnipp.com/snippets/DV3m4 -->
-
         <main class="login-form">
-            <div class="cotainer" style="margin-top: 150px;">
+            <div class="cotainer" style="margin-top: 120px;">
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="card">
@@ -101,21 +108,22 @@
                             <div class="form-group">
                                 <label class="col-form-label col-sm-2" for="nome">Usuário:</label>
                                 <div class="col-xs-12">
-                                    <input name="username" id="username" class="form-control" type="text">
+                                    <input name="username" id="username" class="form-control" type="text" required
+                                        autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-form-label col-sm-2" for="email">E-mail:</label>
                                 <div class="col-xs-12">
-                                    <input name="email" id="email" class="form-control" type="text">
+                                    <input name="email" id="email" class="form-control" type="text" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-form-label col-sm-2" for="password">Senha:</label>
                                 <div class="col-xs-12">
-                                    <input name="password" id="password" class="form-control" type="password">
+                                    <input name="password" id="password" class="form-control" type="password" required>
                                 </div>
                             </div>
 
@@ -136,8 +144,8 @@
                 <a href="#">Rebecca Rodrigues</a> e
                 <a href="#">Marcos Paulo Campos</a>
             </div>
-
         </footer>
+        <!-- Footer -->
     </div>
 
 

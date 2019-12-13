@@ -1,16 +1,16 @@
 let crypto = require('crypto');
 
-function UserModel(connection) {
+function UserDAO(connection) {
 	this._conn = connection;
 }
 
-UserModel.prototype.onUserRegister = function (user, callback) {
+UserDAO.prototype.onUserRegister = function (user, callback) {
 	let encryptPass = crypto.createHash("md5").update(user.password).digest("hex");
 	user.password = encryptPass;
 	this._conn.query('INSERT INTO tb_users SET ?', user, callback);
 }
 
-UserModel.prototype.onAuthentication = function (user, callback) {
+UserDAO.prototype.onAuthentication = function (user, callback) {
 	let encryptPass = crypto.createHash("md5").update(user.password).digest("hex");
 	user.password = encryptPass;
 	let sql = "SELECT * FROM tb_users WHERE username ='" + user.username + "' AND password='" + user.password + "'";
@@ -18,5 +18,5 @@ UserModel.prototype.onAuthentication = function (user, callback) {
 }
 
 module.exports = function() {
-	return UserModel;
+	return UserDAO;
 }
