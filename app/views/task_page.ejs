@@ -6,7 +6,6 @@
     <title>Tasker</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/css/task_page.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
         </script>
@@ -18,29 +17,29 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" media="screen">
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
             $("#btn-sair").click(function () {
                 window.location.href = "/sair";
-            })
-        })
-
-        $(document).ready(function () {
-            $("#btn-add").click(function () {
-                $('#addTaskModal').modal('show');
             });
 
-            $('.btn btn-info openEdit').click(function (e) {
-                var myBookId = $(this).data('id');
-                console.log(myBookId);
-                
-                // As pointed out in comments, 
-                // it is unnecessary to have to manually call the modal.
-                // $('#addBookDialog').modal('show');
+            $(".btnEdit").click(function () {
+                var id = $(this).attr('id');
+                var title = $(this).attr('title');
+                var description = $(this).attr('description');
+                var progress = $(this).attr('progress');
+
+                $('#editTaskModal').modal('show');
+                $(".editId").val(id);
+                $(".editTitle").val(title);
+                $(".editDescription").val(description);
+                $(".editProgress").val(progress);
+            });
+
+            $("[type='number']").keypress(function (evt) {
+                evt.preventDefault();
             });
         })
-
-
 
     </script>
 </head>
@@ -76,7 +75,7 @@
             <div class="row flex-row flex-sm-nowrap py-3">
                 <!-- Backlog -->
                 <div class="col-sm-6 col-md-4 col-xl-4">
-                    <div class="card bg-light">
+                    <div class="card bg-light" style="height: 412px; overflow-y: scroll;">
                         <div class="card-body">
                             <h4 class="card-title text-uppercase text-truncate py-2">Backlog</h4>
                             <div class="items border border-light">
@@ -98,10 +97,12 @@
 
                                         <!-- Ações -->
                                         <div style="padding-top: 5px;">
-                                            <button style="float: left;" id="<%= tasks[i].id %>" type="button"
-                                                class="btn btn-info openEdit" data-toggle="modal"
-                                                data-target="#editTaskModal"
-                                                data-id="<%= tasks[i].id %>">Atualizar</button>
+
+                                            <a class="btn btn-warning btnEdit" style="float: left; cursor: pointer;"
+                                                id="<%= tasks[i].id %>" title="<%= tasks[i].title %>"
+                                                description="<%= tasks[i].description %>"
+                                                progress="<%= tasks[i].progress %>" role="button">Atualizar</a>
+
                                             <a class="btn btn-danger" style="float: right;"
                                                 href="/task/delete?id=<%= tasks[i].id %>" role="button">Excluir</a>
                                         </div>
@@ -117,7 +118,7 @@
                 <!-- Backlog -->
                 <!-- Andamento -->
                 <div class="col-sm-6 col-md-4 col-xl-4">
-                    <div class="card bg-light">
+                    <div class="card bg-light" style="height: 412px; overflow-y: scroll;">
                         <div class="card-body">
                             <h4 class="card-title text-uppercase text-truncate py-2">Em Andamento</h4>
                             <div class="items border border-light">
@@ -138,8 +139,11 @@
                                         </div>
                                         <!-- Ações -->
                                         <div style="padding-top: 5px;">
-                                            <button style="float: left;" type="button" class="btn btn-info"
-                                                data-toggle="modal" data-target="#editTaskModal">Atualizar</button>
+                                            <a class="btn btn-warning btnEdit" style="float: left; cursor: pointer;"
+                                                id="<%= tasks[i].id %>" title="<%= tasks[i].title %>"
+                                                description="<%= tasks[i].description %>"
+                                                progress="<%= tasks[i].progress %>" role="button">Atualizar</a>
+
                                             <a class="btn btn-danger" style="float: right;"
                                                 href="/task/delete?id=<%= tasks[i].id %>" role="button">Excluir</a>
                                         </div>
@@ -155,7 +159,7 @@
                 <!-- Andamento -->
                 <!-- Finalizado -->
                 <div class="col-sm-6 col-md-4 col-xl-4">
-                    <div class="card bg-light">
+                    <div class="card bg-light" style="height: 412px; overflow-y: scroll;">
                         <div class="card-body">
                             <h4 class="card-title text-uppercase text-truncate py-2">Finalizado</h4>
                             <div class="items border border-light">
@@ -177,8 +181,11 @@
 
                                         <!-- Ações -->
                                         <div style="padding-top: 5px;">
-                                            <button style="float: left;" type="button" class="btn btn-info"
-                                                data-toggle="modal" data-target="#editTaskModal">Atualizar</button>
+                                            <a class="btn btn-warning btnEdit" style="float: left; cursor: pointer;"
+                                                id="<%= tasks[i].id %>" title="<%= tasks[i].title %>"
+                                                description="<%= tasks[i].description %>"
+                                                progress="<%= tasks[i].progress %>" role="button">Atualizar</a>
+
                                             <a class="btn btn-danger" style="float: right;"
                                                 href="/task/delete?id=<%= tasks[i].id %>" role="button">Excluir</a>
                                         </div>
@@ -194,8 +201,8 @@
                 <!-- Finalizado -->
             </div>
         </div>
+        <!-- Kanban -->
     </div>
-    <!-- Kanban -->
 
     <!-- Modal -->
     <div class="modal fade" id="editTaskModal" role="dialog">
@@ -207,27 +214,30 @@
                     <span class="close" data-dismiss="modal" style="color: red;">&times;</span>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" action="/task/update_task_data" method="POST" id="form_task_update">
+                    <form class="form-horizontal" action="/task/update" method="POST" id="form_task_update">
+
+                        <input type="hidden" id="id" class="form-control editId" name="id" required>
 
                         <div class="form-group row">
                             <label for="title" class="col-md-4 col-form-label text-md-right">Título</label>
                             <div class="col-md-6">
-                                <input type="text" id="title" class="form-control" name="title" required>
+                                <input type="text" id="title" class="form-control editTitle" name="title" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="description" class="col-md-4 col-form-label text-md-right">Descrição</label>
                             <div class="col-md-6">
-                                <input type="text" id="description" class="form-control" name="description" required>
+                                <input type="text" id="description" class="form-control editDescription"
+                                    name="description" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="title" class="col-md-4 col-form-label text-md-right">Progresso</label>
                             <div class="col-md-6">
-                                <input name="progress" id="progress" class="form-control" type="number" min="0"
-                                    max="100" required>
+                                <input name="progress" id="progress" class="form-control editProgress" type="number"
+                                    min="0" max="100" required>
                             </div>
                         </div>
 
@@ -272,12 +282,13 @@
                     </form>
                 </div>
             </div>
+            <!-- Modal content-->
         </div>
     </div>
     <!-- Modal -->
 
     <!-- Footer -->
-    <footer class="page-footer bg-light list-inline" style="position: absolute; bottom: 0; width: 100%;">
+    <footer class="page-footer bg-light list-inline" style="position: absolute; bottom:0; width: 100%;">
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">© 2019 Copyright:
             <a href="#">Rebecca Rodrigues</a> e

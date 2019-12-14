@@ -1,3 +1,5 @@
+let nodeMailer = require('nodemailer');
+
 module.exports.getTasks = function (app, req, res) {
     let connection = app.config.dbConnection();
     let taskDAO = new app.app.models.taskDAO(connection);
@@ -30,11 +32,10 @@ module.exports.onTaskInsert = function (app, req, res) {
 }
 
 module.exports.onTaskDelete = function (app, req, res) {
-    let taskID = req.query.id
-
+    let taskID = req.query.id;
     let connection = app.config.dbConnection();
     let taskDAO = new app.app.models.taskDAO(connection);
-    
+
     taskDAO.onTaskDelete(taskID, function (error, result) {
         if (error) {
             console.log("Erro");
@@ -44,17 +45,45 @@ module.exports.onTaskDelete = function (app, req, res) {
     });
 }
 
-module.exports.onTaskUpdateData = function (app, req, res) {
+module.exports.onUpdateTask = function (app, req, res) {
     let task = req.body;
-
     let connection = app.config.dbConnection();
     let taskDAO = new app.app.models.taskDAO(connection);
 
-    taskDAO.onTaskUpdateData(tarefa, function (error, result) {
+    if (task.progress == 100) {
+        sendEmail();
+    }
+
+    taskDAO.onUpdateTask(task, function (error, result) {
         if (error) {
             console.log("Erro");
             console.log(error);
         }
         res.redirect('/task');
+    });
+}
+
+function sendEmail() {
+    let transporter = nodeMailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: 587,
+        secure: false,
+        auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASSWORD
+        }
+    });
+
+    let mailOptions = {
+        to: 'marcospcamposfilho@gmail.com',
+        subject: 'Tasker - Tarefa Finalizada',
+        text: 'Uma das tarefas que estavam no gerenciador foi finalizada.'
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message %s sent: %s', info.messageId, info.response);
     });
 }

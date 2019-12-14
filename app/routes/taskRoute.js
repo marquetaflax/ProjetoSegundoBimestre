@@ -18,8 +18,8 @@ module.exports = function (app) {
         app.app.controllers.taskController.onTaskDelete(app, req, res);
     });
 
-    app.post('/task/update_task_data', function (req, res) {
-        app.app.controllers.taskController.onTaskUpdateData(app, req, res);
+    app.post('/task/update', function (req, res) {
+        app.app.controllers.taskController.onUpdateTask(app, req, res);
     });
 
 }
