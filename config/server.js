@@ -20,7 +20,6 @@ app.use(expressSession({
 
 consign().include('app/routes')
     .then('config/dbConnection.js')
-    .then('config/mailer.js')
     .then('app/models')
     .then('app/controllers')
     .into(app);
