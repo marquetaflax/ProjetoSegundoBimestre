@@ -22,6 +22,10 @@
             $("#btn-sair").click(function () {
                 window.location.href = "/sair";
             });
+            
+            $("#btn-add").click(function () {
+                $('#addTaskModal').modal('show');
+            });
 
             $(".btnEdit").click(function () {
                 var id = $(this).attr('id');
