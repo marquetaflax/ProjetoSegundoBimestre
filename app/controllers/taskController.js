@@ -75,7 +75,7 @@ function sendEmail() {
     });
 
     let mailOptions = {
-        to: 'marcospcamposfilho@gmail.com',
+        to: 'c.marcos@aluno.ifsp.edu.br',
         subject: 'Tasker - Tarefa Finalizada',
         text: 'Uma das tarefas que estavam no gerenciador foi finalizada.'
     };
